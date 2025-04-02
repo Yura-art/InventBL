@@ -12,6 +12,10 @@ public class InventoryUIHandler : MonoBehaviour
     [SerializeField] GameObject inventoryButton;
     [SerializeField] Transform content;
 
+    [SerializeField] TextMeshProUGUI previewItemNameText;
+    [SerializeField] TextMeshProUGUI previewItemAmountText;
+    [SerializeField] Image previewItemImage;
+    [SerializeField] CanvasGroup panelItemPreview;
     private void Start()
     {
         ShowItems();
@@ -24,7 +28,26 @@ public class InventoryUIHandler : MonoBehaviour
             ItemDataSO currentItemData = itemsDatabase.SearchById(item.Key);
             GameObject currenButton = Instantiate(inventoryButton, content);
             currenButton.transform.Find("Icon").GetComponent<Image>().sprite = currentItemData.Icon; 
-            currenButton.transform.Find("Image/Text (TMP)").GetComponent<TextMeshProUGUI>().text = item.Value.ToString(); 
+            currenButton.transform.Find("Image/Text (TMP)").GetComponent<TextMeshProUGUI>().text = item.Value.ToString();
+            currenButton.GetComponent<Button>().onClick.AddListener(delegate
+            {
+                ShowSelectedItem(currentItemData, item.Value);
+            });
         }
+    }
+    public void ShowSelectedItem(ItemDataSO itemData, int amount)
+    {
+        ShowItemPreviewPanel();
+
+        previewItemImage.sprite = itemData.Icon;
+        previewItemNameText.text = itemData.ItemName;
+        previewItemAmountText.text = amount.ToString();
+
+    }
+    public void ShowItemPreviewPanel()
+    {
+        panelItemPreview.alpha = 1;
+        panelItemPreview.interactable = true;
+        panelItemPreview.blocksRaycasts = true;
     }
 }
