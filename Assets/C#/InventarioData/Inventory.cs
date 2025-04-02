@@ -15,15 +15,13 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.K))
-        //{
-        //    AddItem(0, 1);
-        //}
 
-        //if (Input.GetKeyDown(KeyCode.J))
-        //{
-        //    AddItem(1, 1);
-        //}
+
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            RemoveItem();
+        }
 
         //if (Input.GetKeyDown(KeyCode.L))
         //{
@@ -31,7 +29,7 @@ public class Inventory : MonoBehaviour
         //}
 
     }
-    public void RemoveItem(int id = 2,int amount = 8)
+    public void RemoveItem(int id = 2, int amount = 5)
     {
         if (Items.ContainsKey(id)) 
         { 
