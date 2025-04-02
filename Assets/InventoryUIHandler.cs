@@ -18,15 +18,15 @@ public class InventoryUIHandler : MonoBehaviour
     [SerializeField] CanvasGroup panelItemPreview;
     private void Start()
     {
-        //ShowItems();
+        ShowItems();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            ShowItems();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.D))
+    //    {
+    //        ShowItems();
+    //    }
+    //}
 
     public void ShowItems()
     {

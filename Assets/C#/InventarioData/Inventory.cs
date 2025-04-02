@@ -18,10 +18,10 @@ public class Inventory : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            RemoveItem();
-        }
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //    RemoveItem();
+        //}
 
         //if (Input.GetKeyDown(KeyCode.L))
         //{
@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
         //}
 
     }
-    public void RemoveItem(int id = 2, int amount = 5)
+    public void RemoveItem(int id , int amount )
     {
         if (Items.ContainsKey(id)) 
         { 
