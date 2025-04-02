@@ -50,4 +50,9 @@ public class InventoryUIHandler : MonoBehaviour
         panelItemPreview.interactable = true;
         panelItemPreview.blocksRaycasts = true;
     }
+    public void DeleteInventoryItem(int id)
+    {
+
+    }
+
 }

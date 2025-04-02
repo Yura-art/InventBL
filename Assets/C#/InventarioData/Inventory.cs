@@ -31,6 +31,18 @@ public class Inventory : MonoBehaviour
         //}
 
     }
+    public void RemoveItem(int id = 2,int amount = 8)
+    {
+        if (Items.ContainsKey(id)) 
+        { 
+            Items[id] = amount;
+
+            if (Items[id] <= 0)
+            {
+                Items.Remove(id);
+            }
+        }
+    }
 
     public void AddItem(int id , int amount)
     {
