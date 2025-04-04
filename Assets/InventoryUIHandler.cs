@@ -16,29 +16,53 @@ public class InventoryUIHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI previewItemAmountText;
     [SerializeField] Image previewItemImage;
     [SerializeField] CanvasGroup panelItemPreview;
+
+    List<GameObject> instantiatonButtons= new List<GameObject>();
+    int selectedItemId;
+
     private void Start()
     {
-        ShowItems();
+        //ShowItems();
+        InstanciateButton();
+        SetInventory(inventory);
     }
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.D))
-    //    {
-    //        ShowItems();
-    //    }
-    //}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ShowItems();
+        }
+    }
+
+    public void InstanciateButton()
+    {
+        for (int i = 0; i < itemsDatabase.Items.Count; i++)
+        {
+            GameObject currenButton = Instantiate(inventoryButton, content);
+            currenButton.SetActive(false);
+            instantiatonButtons.Add(currenButton);
+        }
+
+    }
 
     public void ShowItems()
+
     {
-        foreach(var item in inventory.Items)
+        for (int i = 0; i < instantiatonButtons.Count; i++) 
+        { 
+            instantiatonButtons[i].SetActive(false);
+        }   
+        foreach (var item in inventory.Items)
         {
             ItemDataSO currentItemData = itemsDatabase.SearchById(item.Key);
-            GameObject currenButton = Instantiate(inventoryButton, content);
-            currenButton.transform.Find("Icon").GetComponent<Image>().sprite = currentItemData.Icon; 
+            GameObject currenButton = instantiatonButtons.Find( x => x.activeSelf == false);
+            currenButton.SetActive(true);
+            currenButton.transform.Find("Icon").GetComponent<Image>().sprite = currentItemData.Icon;
             currenButton.transform.Find("Image/Text (TMP)").GetComponent<TextMeshProUGUI>().text = item.Value.ToString();
             currenButton.GetComponent<Button>().onClick.AddListener(delegate
             {
                 ShowSelectedItem(currentItemData, item.Value);
+                selectedItemId = item.Key;
             });
         }
     }
@@ -59,7 +83,14 @@ public class InventoryUIHandler : MonoBehaviour
     }
     public void DeleteInventoryItem(int id)
     {
-
+        inventory.RemoveItem(selectedItemId, 1);
+        //ShowItems();
     }
-
+    public void  SetInventory(Inventory newinventory)
+    {
+        inventory = newinventory;
+        inventory.ItemsUpdated += ShowItems;
+        inventory.ItemRemoved += ShowItems; 
+        inventory.ItemAdded += ShowItems;
+    }
 }

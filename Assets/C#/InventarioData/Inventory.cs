@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public delegate void InventoryUpdateDelegate();
+    public InventoryUpdateDelegate ItemRemoved;
+    public InventoryUpdateDelegate ItemAdded;
+    public InventoryUpdateDelegate ItemsUpdated;
+
     Dictionary<int, int> _items = new()
     {
         {1,8},
@@ -38,6 +43,11 @@ public class Inventory : MonoBehaviour
             if (Items[id] <= 0)
             {
                 Items.Remove(id);
+                ItemRemoved.Invoke();
+            }
+            else
+            {
+                ItemsUpdated?.Invoke();
             }
         }
     }
@@ -47,11 +57,13 @@ public class Inventory : MonoBehaviour
         if (Items.ContainsKey(id))
         {
             Items[id] = amount;
+            ItemsUpdated?.Invoke();
         }
 
         else
         {
             Items.Add(id, amount);
+            ItemAdded?.Invoke();
         }
 
         ShowInventory();
