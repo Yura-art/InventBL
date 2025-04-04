@@ -68,20 +68,29 @@ public class InventoryUIHandler : MonoBehaviour
     }
     public void ShowSelectedItem(ItemDataSO itemData, int amount)
     {
-        ShowItemPreviewPanel();
+        ShowPreviewPanel();
 
         previewItemImage.sprite = itemData.Icon;
         previewItemNameText.text = itemData.ItemName;
         previewItemAmountText.text = amount.ToString();
 
     }
-    public void ShowItemPreviewPanel()
+    public void ShowPreviewPanel()
     {
+
         panelItemPreview.alpha = 1;
         panelItemPreview.interactable = true;
         panelItemPreview.blocksRaycasts = true;
     }
-    public void DeleteInventoryItem(int id)
+
+    public void HidePreviewPanel()
+    {
+
+        panelItemPreview.alpha = 0;
+        panelItemPreview.interactable = false;
+        panelItemPreview.blocksRaycasts = false;
+    }
+    public void DeleteInventoryItem()
     {
         inventory.RemoveItem(selectedItemId, 1);
         //ShowItems();
@@ -92,5 +101,11 @@ public class InventoryUIHandler : MonoBehaviour
         inventory.ItemsUpdated += ShowItems;
         inventory.ItemRemoved += ShowItems; 
         inventory.ItemAdded += ShowItems;
+        inventory.ItemsUpdated += UpdatePreviewAmountText;
+        inventory.ItemRemoved += HidePreviewPanel;
+    }
+    public void UpdatePreviewAmountText()
+    {
+        previewItemAmountText.text = inventory.Items[selectedItemId].ToString();
     }
 }

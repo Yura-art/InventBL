@@ -38,12 +38,12 @@ public class Inventory : MonoBehaviour
     {
         if (Items.ContainsKey(id)) 
         { 
-            Items[id] = amount;
+            Items[id] -= amount;
 
             if (Items[id] <= 0)
             {
                 Items.Remove(id);
-                ItemRemoved.Invoke();
+                ItemRemoved?.Invoke();
             }
             else
             {
