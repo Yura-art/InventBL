@@ -20,8 +20,13 @@ public class InventoryUIHandler : MonoBehaviour
     List<GameObject> instantiatonButtons= new List<GameObject>();
     int selectedItemId;
 
+    ItemFactory factory;
+
     private void Start()
     {
+        factory = gameObject.AddComponent<ItemFactory>();
+        factory.InitializeFactory(itemsDatabase);
+        factory.CreateItem(0,Vector3.zero,Quaternion.identity);
         //ShowItems();
         InstanciateButton();
         SetInventory(inventory);
@@ -94,6 +99,11 @@ public class InventoryUIHandler : MonoBehaviour
     {
         inventory.RemoveItem(selectedItemId, 1);
         //ShowItems();
+    }
+    public void DropInventoryItem()
+    {
+        inventory.RemoveItem(selectedItemId, 1);
+        factory.CreateItem(selectedItemId, Vector3.zero, Quaternion.identity);
     }
     public void  SetInventory(Inventory newinventory)
     {

@@ -15,5 +15,6 @@ MonoBehaviour:
   _id: 3
   _itemName: Axe
   _icon: {fileID: 2059971992, guid: 022ecd26b93bd684fab303d5fde4a587, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 5001980595000765146, guid: 1f562aa1938918347b70899e8f60268e, type: 3}
+  _itemType: 2
   _damage: 30

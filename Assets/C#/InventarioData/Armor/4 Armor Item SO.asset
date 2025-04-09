@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 4
   _itemName: Helmet
   _icon: {fileID: 1773480505, guid: 022ecd26b93bd684fab303d5fde4a587, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 285522424348229163, guid: 9d0e756544147dc4cb18643e88791a39, type: 3}
+  _itemType: 0
   _value: 10
   _type: 0

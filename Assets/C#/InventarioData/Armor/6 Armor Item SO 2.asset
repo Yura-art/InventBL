@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 6
   _itemName: Leggins
   _icon: {fileID: 893770573, guid: 022ecd26b93bd684fab303d5fde4a587, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 8426993193092174876, guid: a7263fe57eec0244e8e8fcd79b4fb29d, type: 3}
+  _itemType: 0
   _value: 10
   _type: 2
