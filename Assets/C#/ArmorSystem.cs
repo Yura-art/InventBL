@@ -6,6 +6,14 @@ using UnityEngine;
 public class ArmorSystem : MonoBehaviour
 {
     Dictionary<ArmorTypeEnum, ArmorItemDataSO> _equippedArmor = new();
+    ItemsFactory _factory;
+   [SerializeField] ItemsDatabaseSO _database;
+
+    private void Start()
+    {
+        _factory = gameObject.AddComponent<ItemsFactory>();
+        _factory.InitializeFactory(_database);
+    }
     public ArmorItemDataSO EquipArmor(ArmorItemDataSO armor)
     {
         ArmorItemDataSO lastItem = null;
