@@ -7,8 +7,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] Inventory inventory;
     [SerializeField] List<Item> nearItems = new();
     [SerializeField] ArmorSystem _armor;
-
+    [SerializeField] HealthSystem _health;
     public ArmorSystem Armor { get => _armor; set => _armor = value; }
+    public HealthSystem Health { get => _health; set => _health = value; }
 
     private void Start()
     {

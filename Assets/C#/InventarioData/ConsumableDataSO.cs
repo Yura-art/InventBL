@@ -13,6 +13,9 @@ public enum ConsumableTypeEnum
 public class ConsumableDataSO : ItemDataSO
 {
     [Header("Consumable Data")]
-    [SerializeField] int _value;
-    [SerializeField] ConsumableTypeEnum _type;
+    [SerializeField] int _consumableValue;
+    [SerializeField] ConsumableTypeEnum _consumableType;
+
+    public int value { get => _consumableValue; set => _consumableValue = value; }
+    public ConsumableTypeEnum ConsumableType { get => _consumableType; set => _consumableType = value; }
 }

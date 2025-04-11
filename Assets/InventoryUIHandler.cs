@@ -130,18 +130,28 @@ public class InventoryUIHandler : MonoBehaviour
     {
         DeleteInventoryItem();
 
-       ItemDataSO itemData =  itemDataBase.SearchById(selectedItemId);
-        
+        ItemDataSO itemData = itemDataBase.SearchById(selectedItemId);
+
         if (itemData.ItemType == ItemTypeEnum.Weapon)
         {
 
         }
         else if (itemData.ItemType == ItemTypeEnum.Consumable)
         {
-
+            ConsumableDataSO consumableItem = (ConsumableDataSO)itemData;
+            if (consumableItem.ConsumableType == ConsumableTypeEnum.Heal)
+            {
+                player.Health.ReciveHeal(consumableItem.value);
+            }
+            else if (consumableItem.ConsumableType == ConsumableTypeEnum.Poison)
+            {
+                player.Health.ReceiveDamage(consumableItem.value);
+            }
+            
         }
-        else if (itemData.ItemType == ItemTypeEnum.Armor) 
+        else if (itemData.ItemType == ItemTypeEnum.Armor)
         {
+            ArmorItemDataSO lastItem = player.Armor.EquipArmor((ArmorItemDataSO)itemData); 
             player.Armor.EquipArmor((ArmorItemDataSO)itemData);
         }
     }
