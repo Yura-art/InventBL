@@ -6,16 +6,17 @@ using UnityEngine;
 public class ArmorSystem : MonoBehaviour
 {
     Dictionary<ArmorTypeEnum, ArmorItemDataSO> _equippedArmor = new();
-    ItemsFactory _factory;
+    ItemsFactory armorFactory;
    [SerializeField] ItemsDatabaseSO _database;
 
     private void Start()
     {
-        _factory = gameObject.AddComponent<ItemsFactory>();
-        _factory.InitializeFactory(_database);
+        armorFactory = gameObject.AddComponent<ItemsFactory>();
+        armorFactory.InitializeFactory(_database);
     }
     public ArmorItemDataSO EquipArmor(ArmorItemDataSO armor)
     {
+        armorFactory.CreateItem(armor.Id, ,Quaternion.identity);
         ArmorItemDataSO lastItem = null;
         if (!_equippedArmor.ContainsKey(armor.ArmorType))
         {
