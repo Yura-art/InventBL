@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemTypeEnum
+{
+    Armor,
+    Consumable,
+    Weapon
+}
 public class ItemDataSO : ScriptableObject
 {
-    public enum ItemTypeEnum
-    {
-        Armor,
-        Consumable,
-        Weapon
-    }
     [SerializeField] int _id;
     [SerializeField] string _itemName;
     [SerializeField] Sprite _icon;

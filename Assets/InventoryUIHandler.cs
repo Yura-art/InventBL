@@ -7,115 +7,142 @@ using UnityEngine.UI;
 public class InventoryUIHandler : MonoBehaviour
 {
     [SerializeField] Inventory inventory;
-    [SerializeField] ItemsDatabaseSO itemsDatabase;
+    [SerializeField] ItemsDatabaseSO itemDataBase;
 
     [SerializeField] GameObject inventoryButton;
-    [SerializeField] Transform content;
+    [SerializeField] ScrollRect scrollItems;
 
     [SerializeField] TextMeshProUGUI previewItemNameText;
     [SerializeField] TextMeshProUGUI previewItemAmountText;
     [SerializeField] Image previewItemImage;
     [SerializeField] CanvasGroup panelItemPreview;
 
-    List<GameObject> instantiatonButtons= new List<GameObject>();
-    int selectedItemId;
+    List<GameObject> InstanciateButtons = new();
 
-    ItemFactory factory;
+    int selectedItemId = -1;
 
-    private void Start()
+    ItemsFactory factory;
+
+    // Que es esta cochinada
+    [SerializeField] PlayerControler player;
+    public void Start()
     {
-        factory = gameObject.AddComponent<ItemFactory>();
-        factory.InitializeFactory(itemsDatabase);
-        factory.CreateItem(0,Vector3.zero,Quaternion.identity);
-        //ShowItems();
+        factory = gameObject.AddComponent<ItemsFactory>();
+        factory.InitializeFactory(itemDataBase);
+
         InstanciateButton();
         SetInventory(inventory);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if ((Input.GetKeyDown(KeyCode.W)))
         {
             ShowItems();
+
         }
     }
 
+    public void SetInventory(Inventory newInventory)
+    {
+        inventory = newInventory;
+
+        inventory.itemUpdated += ShowItems;
+        inventory.itemUpdated += UpdatePreviewAmountText;
+
+        inventory.itemAdd += ShowItems;
+
+        inventory.itemRemoved += ShowItems;
+        inventory.itemRemoved += HidePreviewPanel;
+    }
     public void InstanciateButton()
     {
-        for (int i = 0; i < itemsDatabase.Items.Count; i++)
+        for (int i = 0; i < itemDataBase.Items.Count; i++)
         {
-            GameObject currenButton = Instantiate(inventoryButton, content);
-            currenButton.SetActive(false);
-            instantiatonButtons.Add(currenButton);
+            GameObject currentButton = Instantiate(inventoryButton, scrollItems.content);
+            currentButton.SetActive(false);
+            InstanciateButtons.Add(currentButton);
         }
-
     }
-
     public void ShowItems()
-
     {
-        for (int i = 0; i < instantiatonButtons.Count; i++) 
-        { 
-            instantiatonButtons[i].SetActive(false);
-        }   
+        for (int i = 0; i < InstanciateButtons.Count; i++)
+        {
+            InstanciateButtons[i].SetActive(false);
+        }
         foreach (var item in inventory.Items)
         {
-            ItemDataSO currentItemData = itemsDatabase.SearchById(item.Key);
-            GameObject currenButton = instantiatonButtons.Find( x => x.activeSelf == false);
-            currenButton.SetActive(true);
-            currenButton.transform.Find("Icon").GetComponent<Image>().sprite = currentItemData.Icon;
-            currenButton.transform.Find("Image/Text (TMP)").GetComponent<TextMeshProUGUI>().text = item.Value.ToString();
-            currenButton.GetComponent<Button>().onClick.AddListener(delegate
+            ItemDataSO currenItemData = itemDataBase.SearchById(item.Key);
+            GameObject currentButton = InstanciateButtons.Find(x => x.activeSelf == false);
+            currentButton.SetActive(true);
+            currentButton.transform.Find("Icon").GetComponent<Image>().sprite = currenItemData.Icon;
+            currentButton.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = item.Value.ToString();
+            currentButton.GetComponent<Button>().onClick.AddListener(delegate
             {
-                ShowSelectedItem(currentItemData, item.Value);
+                ShowSelectedItem(currenItemData, item.Value);
                 selectedItemId = item.Key;
             });
         }
     }
+
     public void ShowSelectedItem(ItemDataSO itemData, int amount)
     {
+
         ShowPreviewPanel();
 
         previewItemImage.sprite = itemData.Icon;
         previewItemNameText.text = itemData.ItemName;
         previewItemAmountText.text = amount.ToString();
-
+    }
+    public void UpdatePreviewAmountText()
+    {
+        if (selectedItemId >= 0)
+        {
+            previewItemAmountText.text = inventory.Items[selectedItemId].ToString();
+        }
     }
     public void ShowPreviewPanel()
     {
-
         panelItemPreview.alpha = 1;
         panelItemPreview.interactable = true;
         panelItemPreview.blocksRaycasts = true;
-    }
 
+    }
     public void HidePreviewPanel()
     {
-
         panelItemPreview.alpha = 0;
         panelItemPreview.interactable = false;
         panelItemPreview.blocksRaycasts = false;
+
     }
     public void DeleteInventoryItem()
     {
         inventory.RemoveItem(selectedItemId, 1);
-        //ShowItems();
+
+        ShowItems();
     }
     public void DropInventoryItem()
     {
-        inventory.RemoveItem(selectedItemId, 1);
+        DeleteInventoryItem();
         factory.CreateItem(selectedItemId, Vector3.zero, Quaternion.identity);
+
     }
-    public void  SetInventory(Inventory newinventory)
+    public void UseInventory()
     {
-        inventory = newinventory;
-        inventory.ItemsUpdated += ShowItems;
-        inventory.ItemRemoved += ShowItems; 
-        inventory.ItemAdded += ShowItems;
-        inventory.ItemsUpdated += UpdatePreviewAmountText;
-        inventory.ItemRemoved += HidePreviewPanel;
-    }
-    public void UpdatePreviewAmountText()
-    {
-        previewItemAmountText.text = inventory.Items[selectedItemId].ToString();
+        DeleteInventoryItem();
+
+       ItemDataSO itemData =  itemDataBase.SearchById(selectedItemId);
+        
+        if (itemData.ItemType == ItemTypeEnum.Weapon)
+        {
+
+        }
+        else if (itemData.ItemType == ItemTypeEnum.Consumable)
+        {
+
+        }
+        else if (itemData.ItemType == ItemTypeEnum.Armor) 
+        {
+            player.Armor.EquipArmor((ArmorItemDataSO)itemData);
+        }
     }
 }

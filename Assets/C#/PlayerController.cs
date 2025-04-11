@@ -2,19 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControler : MonoBehaviour
 {
-    Inventory inventory;
+    [SerializeField] Inventory inventory;
+    [SerializeField] List<Item> nearItems = new();
+    [SerializeField] ArmorSystem _armor;
+
+    public ArmorSystem Armor { get => _armor; set => _armor = value; }
+
     private void Start()
     {
-        inventory = gameObject.AddComponent<Inventory>();
+        //inventory = gameObject.AddComponent<Inventory> ();
+    }
+    private void Update()
+
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            int itemsAmount = nearItems.Count;
+            for (int i = itemsAmount - 1; i >= 0; i--)
+            {
+                inventory.AddItem(nearItems[i].Id, 1);
+                Destroy(nearItems[i].gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out Item item))
         {
-            inventory.AddItem(item.Id, 1);
+            nearItems.Add(item);
+
         }
+
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Item item))
+        {
+            nearItems.Remove(item);
+
+        }
+
+    }
+
 }

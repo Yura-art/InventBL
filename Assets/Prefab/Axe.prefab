@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 584859144380487068}
   - component: {fileID: 1863920806968229826}
-  - component: {fileID: 5946397057652747175}
+  - component: {fileID: 3719497454609477141}
+  - component: {fileID: 7561746590922366401}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Untagged
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5946397057652747175
+--- !u!60 &3719497454609477141
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +122,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -129,12 +130,31 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.06, y: 0.16}
-      - {x: -0.049999997, y: 0.16}
-      - {x: -0.07, y: 0.14999999}
-      - {x: -0.08, y: 0.11}
-      - {x: -0.08, y: 0}
-      - {x: 0.01, y: 0}
-      - {x: 0.08, y: 0.049999997}
-      - {x: 0.08, y: 0.12}
+    - - {x: 0.29580688, y: 0.8004761}
+      - {x: 0.29415894, y: 0.9581604}
+      - {x: -0.13516235, y: 0.94299316}
+      - {x: -0.2284851, y: 0.7443085}
+      - {x: -0.2930298, y: 0.68411255}
+      - {x: -0.2962036, y: 0.649292}
+      - {x: -0.29730225, y: 0.56715393}
+      - {x: -0.28903198, y: 0.39035034}
+      - {x: -0.46832275, y: 0.037994385}
+      - {x: -0.19085693, y: 0.009506226}
+      - {x: 0.11291504, y: 0.32917786}
+      - {x: 0.16357422, y: 0.3569336}
+      - {x: 0.39868164, y: 0.34733582}
+      - {x: 0.41131592, y: 0.7563324}
   m_UseDelaunayMesh: 0
+--- !u!114 &7561746590922366401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5001980595000765146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cd12528a81e244e85c754a719c8f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0

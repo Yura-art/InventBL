@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField]
-   public void Use () 
-    { 
+    [SerializeField] int _id;
+
+    public int Id { get => _id; set => _id = value; }
+
+    public void Use()
+    {
 
     }
 }

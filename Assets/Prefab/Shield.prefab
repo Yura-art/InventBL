@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4633777370039271031}
   - component: {fileID: 8241643094180174453}
-  - component: {fileID: 5839836126683284692}
+  - component: {fileID: 7270046802120709718}
+  - component: {fileID: -4511507998120929118}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -85,8 +86,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &5839836126683284692
-CapsuleCollider2D:
+--- !u!60 &7270046802120709718
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,6 +118,37 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.08}
-  m_Size: {x: 0.16, y: 0.16}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.4375, y: 1}
+      - {x: -0.5, y: 0.875}
+      - {x: -0.5, y: 0.125}
+      - {x: -0.375, y: 0}
+      - {x: 0.375, y: 0}
+      - {x: 0.5, y: 0.0625}
+      - {x: 0.5, y: 0.8125}
+      - {x: 0.375, y: 1}
+  m_UseDelaunayMesh: 0
+--- !u!114 &-4511507998120929118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3123394911020420972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cd12528a81e244e85c754a719c8f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
